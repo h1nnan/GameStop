@@ -1,18 +1,38 @@
 import Utils.Client;
 import javax.swing.JOptionPane;
-
+import Utils.List;
 
 public class GamestopClient extends Client {
-    GamestopClient(String pServerIP, int pServerPort) {
+    private List<Game> availableGames;  // Liste der verfügbaren Spiele
+
+    // Konstruktor nimmt die Liste von Spielen entgegen
+    GamestopClient(String pServerIP, int pServerPort, List<Game> availableGames) {
         super(pServerIP, pServerPort);
+        this.availableGames = availableGames;  // Liste speichern
     }
 
-    public void Game(String pName){
-        this.send("Game"+ pName);
+    // Zeigt die verfügbaren Spiele an
+    public void showAvailableGames() {
+        StringBuilder gamesList = new StringBuilder("Available Games:\n");
+
+        availableGames.toFirst();  // Move to the start of the list
+        while (availableGames.hasAccess()) {
+            Game game = availableGames.getContent();
+            gamesList.append(game.getName()).append(" - ").append(game.getPrice()).append("€\n");
+            availableGames.next();
+        }
+
+        JOptionPane.showMessageDialog(null, gamesList.toString());
     }
 
-    public void bestaetigen(String pAntwort){
-        this.send ("BESTAETIGUNG:"+ pAntwort);
+
+    // Weitere Methoden zum Kommunizieren mit dem Server
+    public void requestGame(String gameName) {
+        this.send("REQUEST_GAME:" + gameName);  // Sendet den Namen des Spiels
+    }
+
+    public void confirmGame(String confirmation) {
+        this.send("CONFIRM_GAME:" + confirmation);  // Sendet die Bestätigung an den Server
     }
 
     public void abmelden() {
@@ -20,12 +40,6 @@ public class GamestopClient extends Client {
     }
 
     public void processMessage(String pMessage) {
-        JOptionPane.showMessageDialog(null,"Server sendet:\n" + pMessage);
-    }
-
-    public void sendMessageToServer() {
-        String lMessage;
-        lMessage = JOptionPane.showInputDialog("Bitte geben Sie eine neue Nachricht ein:");
-        send(lMessage);
+        JOptionPane.showMessageDialog(null, "Server sendet:\n" + pMessage);
     }
 }
