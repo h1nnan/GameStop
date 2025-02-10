@@ -1,12 +1,12 @@
-public class Confirm {
+public class Order {
     private boolean confirm;
     private int indr;
 
-    Bestellung(Game pWare){
+    Order(Game pWare){
 
     }
 
-    public boolean getConfirm() {
+    public boolean getBesteatigt() {
         return confirm;
     }
 
