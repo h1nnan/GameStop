@@ -1,10 +1,12 @@
 import Utils.List;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         // Erstelle eine Liste von Spielen
         List<Game> orders = new List<Game>();
+        Scanner scanner = new Scanner(System.in);
 
         Game minecraft = new Game("Minecraft", 13.55, "Mojang", true);
         Game mk1 = new Game("Mortal Kombat 1", 49.99, "Neatherreal Studios", true);
@@ -33,8 +35,10 @@ public class Main {
 
         // Zeige die verfügbaren Spiele im Client an
         shopClient.showAvailableGames();
-
-        // Weitere Logik, um mit dem Server zu kommunizieren
+        System.out.println("Welches spiel möchtest du kaufen lil bro?");
+        String inputRG = scanner.nextLine();
+        shopServer.processNewConnection("10.56.17.207", 13);
+        shopServer.processMessage("10.56.17.207", 13, "Minecraft");
 
     }
 }
