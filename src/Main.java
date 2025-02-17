@@ -28,17 +28,15 @@ public class Main {
         orders.append(l4d2);
 
         // Erstelle den Server
-        GamestopServer shopServer = new GamestopServer(13);
+        GamestopServer shopServer = new GamestopServer(13, orders);
 
         // Erstelle den Client und übergebe die Liste
-        GamestopClient shopClient = new GamestopClient("10.56.17.207", 13, orders);
+        GamestopClient shopClient = new GamestopClient("10.56.17.207", 13);
 
         // Zeige die verfügbaren Spiele im Client an
-        shopClient.showAvailableGames();
+        shopServer.showAvailableGames();
         System.out.println("Welches spiel möchtest du kaufen lil bro?");
         String inputRG = scanner.nextLine();
-        shopServer.processNewConnection("10.56.17.207", 13);
-        shopServer.processMessage("10.56.17.207", 13, "Minecraft");
-
+        shopClient.requestGame(inputRG);
     }
 }

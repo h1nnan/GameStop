@@ -1,14 +1,15 @@
 import Utils.List;
 import Utils.Server;
-import java.util.Scanner;
+import javax.swing.*;
 
 public class GamestopServer extends Server {
-    public List<Game> orders;
+    public List<Game> ListOrders;
 
-    public GamestopServer(int pPortnummer) {
+    public GamestopServer(int pPortnummer, List<Game> ListOrders) {
         super(pPortnummer);
-        this.orders = new List<Game>();
+        this.ListOrders = new List<Game>();
     }
+
 
 
     @Override
@@ -21,18 +22,30 @@ public class GamestopServer extends Server {
     }
 
     public Game findGame(String pMessage) {
-        while (orders.hasAccess()) {
-            if (pMessage.equals(orders.getContent().getName())){
-                return orders.getContent();
+        while (ListOrders.hasAccess()) {
+            if (pMessage.equals(ListOrders.getContent().getName())){
+                return ListOrders.getContent();
             }
-            orders.next();
+            ListOrders.next();
         }
         return null;
     }
 
+    public void showAvailableGames() {
+        StringBuilder gamesList = new StringBuilder("Available Games:\n");
+
+        ListOrders.toFirst();  // Move to the start of the list
+        while (ListOrders.hasAccess()) {
+            Game game = ListOrders.getContent();
+            gamesList.append(game.getName()).append(" - ").append(game.getPrice()).append("€\n");
+            ListOrders.next();
+        }
+
+        JOptionPane.showMessageDialog(null, gamesList.toString());
+    }
 
     public void processMessage(String pClientIP, int pClientPort, String pMessage) {
-        if (orders == null) {
+        if (ListOrders == null) {
             this.send(pClientIP, pClientPort, "Fehler: Bestellungen sind nicht initialisiert.");
             return;
         }
