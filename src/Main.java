@@ -34,7 +34,7 @@ public class Main {
         GamestopClient shopClient = new GamestopClient("10.56.17.207", 13);
 
         // Zeige die verfügbaren Spiele im Client an
-        shopServer.showAvailableGames();
+        shopServer.showAvailableGames(orders);
         System.out.println("Welches spiel möchtest du kaufen lil bro?");
         String inputRG = scanner.nextLine();
         shopClient.requestGame(inputRG);

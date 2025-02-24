@@ -31,7 +31,7 @@ public class GamestopServer extends Server {
         return null;
     }
 
-    public void showAvailableGames() {
+    public void showAvailableGames(List<Game> ListOrders) {
         StringBuilder gamesList = new StringBuilder("Available Games:\n");
 
         ListOrders.toFirst();  // Move to the start of the list
