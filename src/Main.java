@@ -31,12 +31,15 @@ public class Main {
         GamestopServer shopServer = new GamestopServer(13, orders);
 
         // Erstelle den Client und übergebe die Liste
-        GamestopClient shopClient = new GamestopClient("10.56.17.207", 13);
+        GamestopClient shopClient = new GamestopClient("10.56.18.13", 13);
 
         // Zeige die verfügbaren Spiele im Client an
+        shopServer.processNewConnection("10.56.18.13", 13);
         shopServer.showAvailableGames(orders);
         System.out.println("Welches spiel möchtest du kaufen lil bro?");
         String inputRG = scanner.nextLine();
         shopClient.requestGame(inputRG);
+        shopClient.abmelden();
+        //shopServer.findGame("Minecraft");
     }
 }

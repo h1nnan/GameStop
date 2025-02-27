@@ -7,7 +7,7 @@ public class GamestopServer extends Server {
 
     public GamestopServer(int pPortnummer, List<Game> ListOrders) {
         super(pPortnummer);
-        this.ListOrders = new List<Game>();
+        this.ListOrders = ListOrders;
     }
 
 
@@ -22,6 +22,7 @@ public class GamestopServer extends Server {
     }
 
     public Game findGame(String pMessage) {
+        ListOrders.toFirst();
         while (ListOrders.hasAccess()) {
             if (pMessage.equals(ListOrders.getContent().getName())){
                 return ListOrders.getContent();
@@ -45,6 +46,7 @@ public class GamestopServer extends Server {
     }
 
     public void processMessage(String pClientIP, int pClientPort, String pMessage) {
+
         if (ListOrders == null) {
             this.send(pClientIP, pClientPort, "Fehler: Bestellungen sind nicht initialisiert.");
             return;
