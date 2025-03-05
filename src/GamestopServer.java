@@ -3,7 +3,7 @@ import Utils.Server;
 import javax.swing.*;
 
 public class GamestopServer extends Server {
-    public List<Game> ListOrders;
+    private List<Game> ListOrders;
 
     public GamestopServer(int pPortnummer, List<Game> ListOrders) {
         super(pPortnummer);

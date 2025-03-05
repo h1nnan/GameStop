@@ -15,10 +15,6 @@ public class GamestopClient extends Client {
         this.send("REQUEST_GAME:" + gameName);  // Sendet den Namen des Spiels
     }
 
-    //public void confirmGame(String confirmation) {
-    //    this.send("CONFIRM_GAME:" + confirmation);  // Sendet die Bestätigung an den Server
-    //}
-
     public void abmelden() {
         this.send("ABMELDEN");
     }

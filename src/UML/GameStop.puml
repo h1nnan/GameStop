@@ -1,0 +1,69 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Client
+abstract class Server
+class List
+class Game
+class GamestopClient
+class GamestopServer
+class Main
+
+GamestopClient -|> Client
+GamestopServer --|> Server
+GamestopServer --> "*" List : -ListOrders
+GamestopServer --> Game
+class Main {
+    + static void main(String[] args)
+}
+
+Main --> GamestopServer
+Main --> GamestopClient
+
+
+class Game {
+    - double price
+    - String name
+    - String devs
+    - boolean inStock
+    - String Rating
+
+    + Game(String name, double price, String devs, boolean inStock)
+    + double getPrice()
+    + void setPrice(double price)
+    + String getName()
+    + void setName(String name)
+    + String getDevs()
+    + void setDevs(String devs)
+    + boolean isInStock()
+    + void setInStock(boolean inStock)
+    + String getRating()
+    + void setRating(String rating)
+}
+
+
+class GamestopClient {
+    + GamestopClient(String pServerIP, int pServerPort)
+    + void requestGame(String gameName)
+    + void abmelden()
+    + void processMessage(String pMessage)
+}
+
+class GamestopServer {
+    - List<Game> ListOrders
+
+    + GamestopServer(int pPortnummer, List<Game> ListOrders)
+    + void processNewConnection(String pClientIP, int pClientPort)
+    - void processNewMessage(String pClientIP, int pClientPort)
+    + Game findGame(String pMessage)
+    + void showAvailableGames(List<Game> ListOrders)
+    + void processMessage(String pClientIP, int pClientPort, String pMessage)
+    + void processClosingConnection(String pClientIP, int pClientPort)
+    + void processClosedConnection(String pClientIP, int pClientPort)
+}
+
+
+
+
+
+@enduml
